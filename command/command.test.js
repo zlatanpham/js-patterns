@@ -6,9 +6,8 @@ test('run without trouble', () => {
   cal.add(2)
   cal.add(2)
   cal.undo()
-  cal.undo()
+  cal.add(4)
+  cal.subtract(4)
   cal.redo()
-  cal.redo()
-
-  expect(cal.getValue()).toBe(4)
+  expect(cal.getValue()).toBe(6)
 })

@@ -56,13 +56,13 @@ function calculator () {
       )
     },
     undo: function () {
-      if (pointer === 0) return
-      commands[pointer].undo()
+      if (pointer - 1 === 0) return
+      commands[pointer - 1].undo()
       pointer--
     },
     redo: function () {
-      if (pointer === commands.length - 1) return
-      commands[pointer].execute()
+      if (pointer === commands.length) return
+      commands[pointer - 1].execute()
       pointer++
     }
   }
