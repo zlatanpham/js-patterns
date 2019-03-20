@@ -1,4 +1,5 @@
 const { compose, pipe, curry } = require('./compose-pipe-curry')
+const assert = require('assert')
 
 function add3 (num) {
   return num + 3
@@ -50,6 +51,54 @@ test('test curry func', () => {
   var curryAdd = curry(add)
 
   expect(curryAdd(1)(2)).toBe(3)
+})
+
+describe('compose', function () {
+  it('is variadic function', function () {
+    expect(typeof compose).toBe('function')
+    expect(compose).toHaveLength(0)
+  })
+
+  // it('performs right-to-left function composition', function () {
+  //   // f :: (String, Number?) -> ([Number] -> [Number])
+  //   var f = compose(;)
+  //
+  // })
+
+  // it('passes context to functions', function () {
+  //   function x (val) {
+  //     return this.x * val
+  //   }
+  //   function y (val) {
+  //     return this.y * val
+  //   }
+  //   function z (val) {
+  //     return this.z * val
+  //   }
+  //   var context = {
+  //     a: compose(x, y, z),
+  //     x: 4,
+  //     y: 2,
+  //     z: 1
+  //   }
+  //   expect(context.a(5)).toBe(40)
+  // })
+
+  it('throws if given no arguments', function () {
+    assert.throws(
+      function () { compose() },
+      function (err) {
+        return err.constructor === Error && err.message === 'compose requires at least one argument'
+      }
+    )
+  })
+
+  it('can be appliced to one argument', function () {
+    var f = function (a, b, c) { return [a, b, c] }
+    var g = compose(f)
+    expect(g).toHaveLength(3)
+    expect(g(1, 2, 3)).toEqual([1, 2, 3])
+  })
 })
 
 describe('curry', function () {

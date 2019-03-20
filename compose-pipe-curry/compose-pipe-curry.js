@@ -1,4 +1,7 @@
 function compose (...fns) {
+  if (arguments.length === 0) {
+    throw new Error('compose requires at least one argument')
+  }
   return fns.reduce((a, c) => (...args) => a(c(...args)))
 }
 
