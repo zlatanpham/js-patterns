@@ -1,4 +1,4 @@
-const { compose, pipe } = require('./compose-pipe-curry')
+const { compose, pipe, curry } = require('./compose-pipe-curry')
 
 function add3 (num) {
   return num + 3
@@ -40,4 +40,14 @@ test('test compose >< pipe func', () => {
       minus4
     )(2)
   ).toBe(-1)
+})
+
+test('test curry func', () => {
+  function add (a, b) {
+    return a + b
+  }
+
+  var curryAdd = curry(add)
+
+  expect(curryAdd(1)(2)).toBe(3)
 })
