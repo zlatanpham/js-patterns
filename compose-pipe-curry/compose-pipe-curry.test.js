@@ -1,58 +1,6 @@
 const { compose, pipe, curry } = require('./compose-pipe-curry')
 const assert = require('assert')
 
-function add3 (num) {
-  return num + 3
-}
-
-function multiply2 (num) {
-  return num * 2
-}
-
-function minus4 (num) {
-  return num - 4
-}
-
-test('test compose func', () => {
-  expect(
-    compose(
-      minus4,
-      add3,
-      add3
-    )(0)
-  ).toBe(2)
-})
-
-test('test pipe func', () => {
-  expect(
-    pipe(
-      add3,
-      multiply2,
-      minus4
-    )(2)
-  ).toBe(6)
-})
-
-test('test compose >< pipe func', () => {
-  expect(
-    compose(
-      add3,
-      multiply2,
-      minus4
-    )(2)
-  ).toBe(-1)
-})
-
-test('test curry func', () => {
-  function add (a, b) {
-    return a + b
-  }
-
-  var curryAdd = curry(add)
-
-  expect(curryAdd(1)(2)).toBe(3)
-})
-
 describe('compose', function () {
   it('is variadic function', function () {
     expect(typeof compose).toBe('function')
@@ -87,6 +35,42 @@ describe('compose', function () {
   it('throws if given no arguments', function () {
     assert.throws(
       function () { compose() },
+      function (err) {
+        return err.constructor === Error && err.message === 'compose requires at least one argument'
+      }
+    )
+  })
+
+  it('can be appliced to one argument', function () {
+    var f = function (a, b, c) { return [a, b, c] }
+    var g = compose(f)
+    expect(g).toHaveLength(3)
+    expect(g(1, 2, 3)).toEqual([1, 2, 3])
+  })
+})
+
+describe('pipe', function () {
+  it('it is variadic function', function () {
+    expect(typeof pipe).toBe('function')
+    expect(pipe).toHaveLength(0)
+  })
+
+  it('performs left-to-right function composition', function () {
+    function add1 (n) {
+      return n + 1
+    }
+    function minus2 (n) {
+      return n - 2
+    }
+    function multiply3 (n) {
+      return n * 3
+    }
+    expect(pipe(add1, minus2, multiply3)(1)).toBe(0)
+  })
+
+  it('throws if given no arguments', function () {
+    assert.throws(
+      function () { pipe() },
       function (err) {
         return err.constructor === Error && err.message === 'compose requires at least one argument'
       }

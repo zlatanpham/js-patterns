@@ -6,6 +6,9 @@ function compose (...fns) {
 }
 
 function pipe (...fns) {
+  if (arguments.length === 0) {
+    throw new Error('compose requires at least one argument')
+  }
   return fns.reverse().reduce((a, c) => (...args) => a(c(...args)))
 }
 
