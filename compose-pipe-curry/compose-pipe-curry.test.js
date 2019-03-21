@@ -1,5 +1,4 @@
 const { compose, pipe, curry } = require('./compose-pipe-curry')
-const assert = require('assert')
 
 describe('compose', function () {
   it('is variadic function', function () {
@@ -33,12 +32,7 @@ describe('compose', function () {
   // })
 
   it('throws if given no arguments', function () {
-    assert.throws(
-      function () { compose() },
-      function (err) {
-        return err.constructor === Error && err.message === 'compose requires at least one argument'
-      }
-    )
+    expect(compose).toThrow('compose requires at least one argument')
   })
 
   it('can be appliced to one argument', function () {
@@ -69,12 +63,7 @@ describe('pipe', function () {
   })
 
   it('throws if given no arguments', function () {
-    assert.throws(
-      function () { pipe() },
-      function (err) {
-        return err.constructor === Error && err.message === 'compose requires at least one argument'
-      }
-    )
+    expect(pipe).toThrow('compose requires at least one argument')
   })
 
   it('can be appliced to one argument', function () {
