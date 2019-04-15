@@ -1,6 +1,5 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["standard"],
+  "extends": ["prettier"],
   "env": {
     "node": true,
     "es6": true,
@@ -11,6 +10,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "prettier/prettier": "error",
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
