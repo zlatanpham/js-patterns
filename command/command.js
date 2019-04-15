@@ -1,4 +1,4 @@
-function Command (execute, undo, executeImmediate = true) {
+function Command(execute, undo, executeImmediate = true) {
   if (typeof execute === 'function' && executeImmediate) {
     execute()
   }
@@ -8,59 +8,59 @@ function Command (execute, undo, executeImmediate = true) {
     undo
   }
 }
-function calculator () {
+function calculator() {
   var value = 0
   var commands = []
   var pointer = 0
 
-  var add = function (num) {
+  var add = function(num) {
     value += num
   }
 
-  var subtract = function (num) {
+  var subtract = function(num) {
     value -= num
   }
 
-  var addCommand = function (command) {
+  var addCommand = function(command) {
     pointer++
     commands.splice(pointer, commands.length)
     commands.push(command)
   }
 
   return {
-    getValue: function () {
+    getValue: function() {
       return value
     },
-    add: function (num) {
+    add: function(num) {
       addCommand(
         new Command(
-          function () {
+          function() {
             add(num)
           },
-          function () {
+          function() {
             subtract(num)
           }
         )
       )
     },
-    subtract: function (num) {
+    subtract: function(num) {
       addCommand(
         new Command(
-          function () {
+          function() {
             subtract(num)
           },
-          function () {
+          function() {
             add(num)
           }
         )
       )
     },
-    undo: function () {
+    undo: function() {
       if (pointer - 1 === 0) return
       commands[pointer - 1].undo()
       pointer--
     },
-    redo: function () {
+    redo: function() {
       if (pointer === commands.length) return
       commands[pointer - 1].execute()
       pointer++

@@ -1,7 +1,7 @@
 var memoize = require('./memoize')
 
 test('test memoize with single primative number', () => {
-  function plusPlus (number) {
+  function plusPlus(number) {
     return number + 1
   }
 
@@ -13,7 +13,7 @@ test('test memoize with single primative number', () => {
 
 test('test memoize with single non-primative number', () => {
   var numOfCalls = 0
-  function plusPlus (obj) {
+  function plusPlus(obj) {
     numOfCalls++
     return obj.number + 1
   }
@@ -27,8 +27,8 @@ test('test memoize with single non-primative number', () => {
 })
 
 test('test memoize with spread arguments', () => {
-  function multiply (multiplier, ...args) {
-    return args.map(function (element) {
+  function multiply(multiplier, ...args) {
+    return args.map(function(element) {
       return multiplier * element
     })
   }

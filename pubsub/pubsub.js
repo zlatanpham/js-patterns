@@ -1,20 +1,20 @@
-var events = (function () {
+var events = (function() {
   var topics = []
   var hOP = topics.hasOwnProperty
 
   return {
-    subscribe: function (topic, listener) {
+    subscribe: function(topic, listener) {
       if (!hOP.call(topics, topic)) topics[topic] = []
       var index = topics[topic].push(listener) - 1
 
-      return function () {
+      return function() {
         delete topics[topic][index]
       }
     },
-    publish: function (topic, info) {
+    publish: function(topic, info) {
       if (!hOP.call(topics, topic)) return
 
-      topics[topic].forEach(function (item) {
+      topics[topic].forEach(function(item) {
         item(info || {})
       })
     }

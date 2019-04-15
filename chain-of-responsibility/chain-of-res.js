@@ -1,13 +1,13 @@
-var Request = function (amount) {
+var Request = function(amount) {
   this.amount = amount
 }
 
 Request.prototype = {
-  add: function (amount) {
+  add: function(amount) {
     this.amount += amount
     return this
   },
-  subtract: function (amount) {
+  subtract: function(amount) {
     this.amount -= amount
     return this
   }

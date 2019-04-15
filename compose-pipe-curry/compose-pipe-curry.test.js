@@ -1,7 +1,7 @@
 const { compose, pipe, curry } = require('./compose-pipe-curry')
 
-describe('compose', function () {
-  it('is variadic function', function () {
+describe('compose', function() {
+  it('is variadic function', function() {
     expect(typeof compose).toBe('function')
     expect(compose).toHaveLength(0)
   })
@@ -31,58 +31,72 @@ describe('compose', function () {
   //   expect(context.a(5)).toBe(40)
   // })
 
-  it('throws if given no arguments', function () {
+  it('throws if given no arguments', function() {
     expect(compose).toThrow('compose requires at least one argument')
   })
 
-  it('can be appliced to one argument', function () {
-    var f = function (a, b, c) { return [a, b, c] }
+  it('can be appliced to one argument', function() {
+    var f = function(a, b, c) {
+      return [a, b, c]
+    }
     var g = compose(f)
     expect(g).toHaveLength(3)
     expect(g(1, 2, 3)).toEqual([1, 2, 3])
   })
 })
 
-describe('pipe', function () {
-  it('it is variadic function', function () {
+describe('pipe', function() {
+  it('it is variadic function', function() {
     expect(typeof pipe).toBe('function')
     expect(pipe).toHaveLength(0)
   })
 
-  it('performs left-to-right function composition', function () {
-    function add1 (n) {
+  it('performs left-to-right function composition', function() {
+    function add1(n) {
       return n + 1
     }
-    function minus2 (n) {
+    function minus2(n) {
       return n - 2
     }
-    function multiply3 (n) {
+    function multiply3(n) {
       return n * 3
     }
-    expect(pipe(add1, minus2, multiply3)(1)).toBe(0)
+    expect(
+      pipe(
+        add1,
+        minus2,
+        multiply3
+      )(1)
+    ).toBe(0)
   })
 
-  it('throws if given no arguments', function () {
+  it('throws if given no arguments', function() {
     expect(pipe).toThrow('compose requires at least one argument')
   })
 
-  it('can be appliced to one argument', function () {
-    var f = function (a, b, c) { return [a, b, c] }
+  it('can be appliced to one argument', function() {
+    var f = function(a, b, c) {
+      return [a, b, c]
+    }
     var g = compose(f)
     expect(g).toHaveLength(3)
     expect(g(1, 2, 3)).toEqual([1, 2, 3])
   })
 })
 
-describe('curry', function () {
-  it('curries a single value', function () {
-    var f = curry(function (a, b, c, d) { return (a + b * c) / d })
+describe('curry', function() {
+  it('curries a single value', function() {
+    var f = curry(function(a, b, c, d) {
+      return (a + b * c) / d
+    })
     // f(12, 3, 6, 2) == 15
     expect(f(12, 3, 6, 2)).toBe(15)
   })
 
-  it('curries multiple values', function () {
-    var f = curry(function (a, b, c, d) { return (a + b * c) / d })
+  it('curries multiple values', function() {
+    var f = curry(function(a, b, c, d) {
+      return (a + b * c) / d
+    })
     // f(12, 3, 6, 2) == 15
     var g = f(12, 3)
     expect(g(6, 2)).toBe(15)
@@ -90,8 +104,10 @@ describe('curry', function () {
     expect(h(2)).toBe(15)
   })
 
-  it('allows further currying of a curried function', function () {
-    var f = curry(function (a, b, c, d) { return (a + b * c) / d })
+  it('allows further currying of a curried function', function() {
+    var f = curry(function(a, b, c, d) {
+      return (a + b * c) / d
+    })
     // f(12, 3, 6, 2) == 15
     var g = f(12)
     expect(g(3, 6, 2)).toBe(15)
